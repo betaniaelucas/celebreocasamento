@@ -1,0 +1,313 @@
+/* ===========================
+   VARIÁVEIS & BASE
+   =========================== */
+:root{
+  --space-1: clamp(0.5rem, 1vw, 0.75rem);
+  --space-2: clamp(0.75rem, 1.2vw, 1rem);
+  --space-3: clamp(1rem, 2vw, 1.5rem);
+  --space-4: clamp(1.5rem, 3vw, 2.5rem);
+  --radius: 12px;
+
+  --accent: #e2725b;   /* dourado */
+  --accent-2: #d86a52;
+  --blue-100:#cfe0ef;  /* borda das pílulas */
+  --text: #333;
+  --muted: #666;
+  --border: #e8e6e3;
+  --bg: #ffffff;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+html, body { width:100%; max-width:100%; margin:0; overflow-x:hidden; }
+
+body {
+  font-family: 'Raleway', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+/* Acessibilidade: foco visível */
+:where(a, button, input, select, textarea):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Reduzir movimento */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+
+/* Safe area iOS */
+@supports (padding: max(0px)) {
+  body {
+    padding-left: max(env(safe-area-inset-left), 0px);
+    padding-right: max(env(safe-area-inset-right), 0px);
+  }
+}
+
+/* Utilidades */
+img { max-width:100%; height:auto; display:block; }
+[hidden]{ display:none !important; }
+.center{ text-align:center; }
+.container{ width:min(100%, 980px); margin-inline:auto; padding: clamp(1.2rem, 3vw, 2rem) clamp(1rem, 3vw, 1.5rem); }
+.section-heading{ font-family:'Playfair Display',serif; color:var(--accent); text-transform:uppercase; letter-spacing:.14em; margin: 1.2rem 0; }
+
+/* ===========================
+   HEADER / NAVEGAÇÃO (sobre o hero)
+   =========================== */
+.site-header{
+  position: fixed;      /* fica sobre a imagem */
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+}
+.topnav{
+  display:flex; flex-wrap:wrap; gap:1rem; justify-content:center;
+  padding:.6rem 1rem;
+  background: transparent;      /* transparente no topo */
+  border-bottom: 0;
+  transition: background .25s ease, border-color .25s ease;
+}
+.topnav .nav-link{
+  text-decoration:none; font-weight:700; text-transform:uppercase;
+  letter-spacing:.08em; font-size:.8rem;
+  color:#fff;                    /* branco sobre a foto */
+  text-shadow: 0 1px 6px rgba(0,0,0,.35);
+  padding:.25rem .35rem;
+}
+.topnav .nav-link:hover{ color: #f3e6d3; }
+
+/* Estado sólido quando sai do hero */
+.site-header.is-solid .topnav{
+  background: rgba(255,255,255,.9);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: saturate(140%) blur(6px);
+}
+.site-header.is-solid .nav-link{
+  color:#111;
+  text-shadow:none;
+}
+.site-header.is-solid .nav-link:hover{ color: var(--accent); }
+
+@media (max-width: 640px){
+  .topnav{ padding:.5rem .75rem; }
+}
+
+/* ===========================
+   HERO
+   =========================== */
+.hero{ position:relative; height:min(72svh, 780px); display:grid; place-items:center; overflow:hidden; }
+.hero-img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; }
+.hero-gradient{ position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,.35), rgba(0,0,0,.5)); z-index:1; }
+.hero-inner{ position:relative; z-index:2; text-align:center; color:#fff; display:grid; place-items:center; gap:.2rem; padding:0 var(--space-2); }
+.hero-signature{ width:min(42vw, 620px); height:auto; opacity:.95; filter: drop-shadow(0 8px 20px rgba(0,0,0,.25)); }
+.hero-title{ font-family:'Playfair Display',serif; letter-spacing:.14em; text-transform:uppercase; margin:.5rem 0 0; font-size: clamp(1.6rem, 4vw, 2.8rem); }
+.hero-date{ letter-spacing:.35em; text-transform:uppercase; margin:.1rem 0 0; }
+
+/* ===========================
+   INTRO (TEXTOS)
+   =========================== */
+.intro{ font-size:1rem; line-height:1.85; }
+.intro p{ margin:.9rem 0; }
+
+/* ===========================
+   GALERIA “O CASAL”
+   =========================== */
+.gallery-3{ display:grid; grid-template-columns:1fr; gap: .8rem; margin-top:.6rem; }
+.gallery-3 img{ width:100%; height:auto; border-radius:12px; box-shadow:0 8px 22px rgba(0,0,0,.08); }
+@media (min-width:768px){ .gallery-3{ grid-template-columns:repeat(3,1fr); } }
+
+/* ===========================
+   CTAs EM PÍLULA
+   =========================== */
+.cta-pills{ display:grid; gap:.9rem; max-width:760px; margin:1rem auto 0; }
+.pill{
+  display:flex; align-items:center; gap:.9rem;
+  padding:.85rem 1rem; border:2px solid var(--blue-100); border-radius:999px;
+  background:#fff; text-decoration:none; box-shadow:0 4px 14px rgba(0,0,0,.06);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.pill:hover{ transform: translateY(-1px); box-shadow:0 10px 22px rgba(0,0,0,.10); }
+.pill-icon{ font-size:1.25rem; line-height:1; }
+.pill-text{ display:grid; line-height:1.25; }
+.pill-over{ font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:#6b7b88; }
+.pill strong{ font-size:1rem; color:#111; letter-spacing:.06em; }
+
+/* ===========================
+   TEXTOS LONGOS / HOTÉIS
+   =========================== */
+.eyebrow{ text-transform:uppercase; letter-spacing:.22em; color:#555; margin:.5rem 0 1rem; }
+.text-block p{ margin:.6rem 0; }
+.hotels{ display:grid; gap:1rem; margin-top:.8rem; }
+.hotels article{ background:#fff; border:1px solid var(--border); border-radius:12px; padding:1rem 1.1rem; box-shadow:0 8px 22px rgba(0,0,0,.06); }
+.hotels h4{ margin:.2rem 0 .4rem; text-align:center; }
+
+/* ===========================
+   CERIMÔNIA / RECEPÇÃO
+   =========================== */
+.bigline{ font-family:'Playfair Display',serif; letter-spacing:.2em; text-transform:uppercase; margin:.25rem 0 1rem 0; font-weight:600; font-size:clamp(1.2rem,3.6vw,1.8rem); }
+.bigline .time{ display:inline-block; letter-spacing:.2em }
+.section-title{ margin:.5rem 0 .25rem 0; font-weight:700; letter-spacing:.18em; text-transform:uppercase; }
+.address{ margin:.25rem 0 0 0; line-height:1.6; font-size:clamp(0.95rem,2.6vw,1.05rem); text-wrap:balance; }
+.note{ margin:clamp(.9rem,2.4vw,1rem) 0 0 0; font-size:clamp(0.9rem,2.4vw,1rem); letter-spacing:.12em; }
+.ceremony-reception{ padding-top:1rem; }
+.fade-sig img{ opacity:.92; }
+
+/* ===========================
+   ASSINATURA (quando usada isolada)
+   =========================== */
+.signature{ display:block; margin:clamp(1.2rem,4vw,1.8rem) auto 0 auto; width:min(92vw, 820px); height:auto; opacity:.95 }
+
+/* ===========================
+   PÁGINA DE CONFIRMAÇÃO
+   (confirm.html) — mantida
+   =========================== */
+.confirm-page {
+  min-height: 100svh; min-height: 100dvh; margin: 0;
+  background: url('../image/fundo1.png') center/cover no-repeat fixed;
+  position: relative; color: var(--text); font-family: 'Raleway', sans-serif;
+}
+.confirm-overlay { position: fixed; inset: 0; background: rgba(255,255,255,0.6); pointer-events: none; }
+.confirm-container { position: relative; min-height: 100svh; min-height: 100dvh; display: grid; place-items: center; padding: clamp(1.25rem, 4vw, 2rem) clamp(1rem, 4vw, 1.5rem); }
+.confirm-card { width: 100%; max-width: 760px; background: rgba(255,255,255,0.88); backdrop-filter: blur(4px); padding: clamp(1.5rem, 4vw, 2.25rem) clamp(1.25rem, 3vw, 2rem); border-radius: 18px; box-shadow: 0 8px 32px rgba(0,0,0,0.12); }
+.confirm-title { font-family: 'Playfair Display', serif; text-align: center; margin: 0 0 1.25rem 0; font-size: clamp(1.3rem, 3.2vw, 2rem); color: var(--accent); }
+.form-label { display:block; margin-bottom:0.5rem; font-weight:600; }
+.busca-input { width: 100%; padding: clamp(0.7rem, 2.2vw, 0.9rem); border-radius: 12px; border: 1px solid #ccc; font-size: clamp(1rem, 2.8vw, 1rem); background: #fff; }
+.grupo-area { margin-top: 1rem; }
+.grupo-hint { margin: 0 0 0.5rem 0; color:#555; }
+.grupo-lista { display: grid; gap: 0.5rem; grid-template-columns: 1fr; }
+@media (min-width: 640px) { .grupo-lista { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 960px) { .grupo-lista { grid-template-columns: repeat(3, 1fr); } }
+.checkbox-item { display: flex; align-items: center; gap: 0.6rem; background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 0.6rem 0.75rem; }
+
+.btn-primary {
+  margin-top: 1rem; display: inline-block; min-height:44px;
+  padding: clamp(0.8rem, 2.6vw, 0.9rem) clamp(1.1rem, 3vw, 1.4rem);
+  border-radius: 28px; border: 1px solid var(--accent-2);
+  background: #fff; color: var(--accent); font-size: 1rem; cursor: pointer;
+  transition: 0.25s;
+}
+.btn-primary:hover:not([disabled]) { background:var(--accent); color:#fff; }
+.btn-primary[disabled] { opacity:.6; cursor:not-allowed; }
+
+.status-msg { margin-top: 0.75rem; min-height: 1.25rem; font-size: 0.95rem; }
+
+/* Busca (confirm) */
+.busca-row{display:flex;gap:.5rem;align-items:stretch}
+.resultado-lista{margin:.75rem 0 0 0;padding:0;list-style:none;display:grid;gap:.5rem}
+.resultado-lista li{margin:0}
+.resultado-btn{width:100%;text-align:left;border:1px solid var(--border);background:#fff;border-radius:12px;padding:.65rem .8rem;cursor:pointer}
+.resultado-btn:hover,.resultado-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.resultado-vazio{color:#666;font-size:.95rem;padding:.25rem 0}
+
+/* Popup básico (confirm) */
+.popup-content { max-width: min(90vw, 420px); margin: 0 1rem; border-radius: 16px; }
+
+
+
+
+/* ===== INFORMAÇÕES IMPORTANTES — layout do mock ===== */
+
+.infos { padding-top: 1rem; }
+.infos .section-heading { color: var(--accent); }
+.infos p.center { max-width: 720px; margin-left:auto; margin-right:auto; }
+
+.infos-tap { display:grid; place-items:center; margin: .6rem 0 .4rem 0; }
+.infos-tap-over{
+  margin:0; text-align:center; font-size:.8rem; letter-spacing:.18em;
+  text-transform:uppercase; color:#666;
+}
+.infos-tap-over strong{ color:#111; }
+.infos-tap-hand{ width:min(120px, 28vw); height:auto; opacity:.9; margin-top:.2rem; }
+
+.infos-cta-stack{
+  width:min(100%, 720px);
+  margin: .6rem auto 0 auto;
+  display:grid; gap: 1rem;
+}
+.infos-cta-item{ text-align:center; }
+
+.infos-overline{
+  margin:0 0 .35rem 0; line-height:1.25;
+  text-transform:uppercase; letter-spacing:.18em; font-size:.75rem;
+  color:#6b7b88;
+}
+.infos-overline strong{ color:#111; }
+
+/* Botão pílula com ícone de imagem */
+.infos-pill{
+  position:relative; display:flex; align-items:center; justify-content:center;
+  gap:.5rem; text-decoration:none;
+  padding: 1rem 1.25rem;
+  border: 3px solid var(--blue-100);
+  border-radius: 999px;
+  background:#fff;
+  box-shadow: 0 6px 14px rgba(0,0,0,.08);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.infos-pill:hover{ transform: translateY(-1px); box-shadow:0 10px 22px rgba(0,0,0,.12); }
+
+/* Ícone à esquerda (imagens que você enviou) */
+.infos-icon{
+  width: 36px; height: 36px; object-fit: contain;
+  margin-right: .6rem; flex: 0 0 auto;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,.08));
+}
+
+/* Texto centralizado em serif, como no modelo */
+.infos-pill-text{
+  font-family:'Playfair Display', serif;
+  font-weight:700; letter-spacing:.04em;
+  color:#111; text-align:center;
+  font-size: clamp(1rem, 2.4vw, 1.25rem);
+  line-height:1.1;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* ===== INFORMAÇÕES IMPORTANTES — versão compacta ===== */
+.infos-cta-stack{            /* largura total do conjunto */
+  width: 460px;              /* era 420px */
+  max-width: 92vw;
+  gap: 32px;                 /* era 14px */
+}
+
+.infos-overline{
+  font-size: .85rem;         /* subtítulo menor */
+  margin: 2px 0 6px 0;
+}
+
+.infos-pill{                 /* reduz altura e borda */
+  padding: 10px 18px 10px 56px;   /* era 14px 24px 14px 64px */
+  border-width: 2px;              /* era 3px */
+  box-shadow: 0 6px 14px rgba(0,0,0,.07);
+}
+
+.infos-icon{                 /* ícone menor e mais próximo */
+  width: 26px; height: 26px;      /* era 34px */
+  left: 16px;                     /* era 18px */
+}
+
+.infos-pill-text{            /* texto um pouco menor */
+  font-size: .95rem;              /* era ~1.05rem */
+}
+
+
+
+
+
+
+/* Centraliza a assinatura do rodapé */
+.fade-sig img{
+  display:block;
+  margin: 0 auto;   /* centraliza horizontalmente */
+}

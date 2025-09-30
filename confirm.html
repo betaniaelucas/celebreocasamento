@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Confirmação de Presença | Betânia & Lucas</title>
+  <link rel="icon" type="image/png" href="image/4.png">
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Estilos mínimos do popup (auto-contido) -->
+  <style>
+    .popup-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;z-index:9999}
+    .popup-content{background:#fff;padding:2rem 2.5rem;border-radius:16px;text-align:center;max-width:420px;margin:0 1rem;box-shadow:0 10px 30px rgba(0,0,0,.2);animation:fadeInUp .35s ease}
+    .popup-content h2{margin:0 0 1rem;font-family:'Playfair Display',serif;color:#a17f56}
+    .popup-content p{margin:0;color:#333}
+    @keyframes fadeInUp{from{transform:translateY(30px);opacity:0}to{transform:translateY(0);opacity:1}}
+    .visually-hidden{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+    /* Estilos da busca/lista de resultados */
+    .busca-row{display:flex;gap:.5rem;align-items:stretch}
+    .busca-input{flex:1 1 auto;padding:.75rem 1rem;border-radius:12px;border:1px solid #ccc;font-size:1rem}
+    .resultado-lista{margin:.75rem 0 0 0;padding:0;list-style:none;display:grid;gap:.5rem}
+    .resultado-lista li{margin:0}
+    .resultado-btn{width:100%;text-align:left;border:1px solid #e8e6e3;background:#fff;border-radius:12px;padding:.65rem .8rem;cursor:pointer}
+    .resultado-btn:hover,.resultado-btn:focus-visible{outline:2px solid #a17f56;outline-offset:2px}
+    .resultado-vazio{color:#666;font-size:.95rem;padding:.25rem 0}
+  </style>
+</head>
+<body class="confirm-page">
+  <div class="confirm-overlay" aria-hidden="true"></div>
+
+  <main class="confirm-container">
+    <section class="confirm-card">
+      <h1 class="confirm-title">Confirme sua presença no almoço de casamento</h1>
+
+      <form id="formConfirmacao" novalidate>
+        <h2 class="visually-hidden">Formulário de confirmação</h2>
+
+        <label for="buscaNome" class="form-label">Digite seu nome</label>
+        <div class="busca-row">
+          <input id="buscaNome" class="busca-input" type="text" inputmode="latin-name" placeholder="Ex.: Lucas" autocomplete="off" />
+          <button id="btnBuscar" type="button" class="btn btn-primary" aria-label="Buscar nome">Buscar</button>
+        </div>
+        <ul id="resultadoBusca" class="resultado-lista" aria-live="polite" aria-label="Resultados da busca"></ul>
+
+        <div id="grupoArea" class="grupo-area" hidden>
+          <p class="grupo-hint">Marque quem do seu grupo irá comparecer:</p>
+          <div id="grupoLista" class="grupo-lista"></div>
+        </div>
+
+        <button id="btnEnviar" type="submit" class="btn btn-primary" disabled>Enviar confirmação</button>
+        <p id="statusMsg" class="status-msg" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+
+  <!-- Popup de sucesso -->
+  <div id="popupSucesso" class="popup-overlay" role="dialog" aria-modal="true" hidden>
+    <div class="popup-content" tabindex="-1">
+      <h2>🎉 Presença confirmada!</h2>
+      <p>Obrigado por confirmar. Estamos ansiosos para celebrar com você 💍</p>
+      <button id="btnOkPopup" class="btn btn-primary" type="button">OK</button>
+    </div>
+  </div>
+
+  <script src="js/confirm.js"></script>
+</body>
+</html>
