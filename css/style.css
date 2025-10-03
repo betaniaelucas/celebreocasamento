@@ -311,3 +311,37 @@ img { max-width:100%; height:auto; display:block; }
   display:block;
   margin: 0 auto;   /* centraliza horizontalmente */
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Ajuste do menu no celular */
+@media (max-width: 768px) {
+  .topnav {
+    font-size: 14px;   /* diminui o texto */
+    gap: 6px;          /* diminui o espaço entre os links */
+    flex-wrap: wrap;   /* permite quebrar em 2 linhas */
+    justify-content: center;
+  }
+
+  .topnav .nav-link {
+    padding: 4px 6px;  /* reduz ainda mais o tamanho dos botões */
+  }
+}
+
